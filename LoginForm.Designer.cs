@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.LoginLabel = new System.Windows.Forms.Label();
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.UsernameLabel = new System.Windows.Forms.Label();
@@ -37,7 +38,6 @@
             this.cboxShowPassword = new System.Windows.Forms.CheckBox();
             this.btnLogin = new System.Windows.Forms.Button();
             this.foreverClose1 = new ReaLTaiizor.Controls.ForeverClose();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -50,6 +50,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(455, 500);
             this.panel1.TabIndex = 0;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::Marty_s_Karenderia.Properties.Resources._2;
+            this.pictureBox2.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(455, 500);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox2.TabIndex = 0;
+            this.pictureBox2.TabStop = false;
             // 
             // LoginLabel
             // 
@@ -83,7 +93,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Yu Gothic UI Semilight", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(477, 275);
+            this.label1.Location = new System.Drawing.Point(477, 246);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 20);
             this.label1.TabIndex = 5;
@@ -92,17 +102,17 @@
             // txtPassword
             // 
             this.txtPassword.Font = new System.Drawing.Font("Yu Gothic UI Semilight", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPassword.Location = new System.Drawing.Point(481, 298);
+            this.txtPassword.Location = new System.Drawing.Point(481, 269);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(370, 33);
             this.txtPassword.TabIndex = 4;
+            this.txtPassword.UseSystemPasswordChar = true;
             // 
             // cboxShowPassword
             // 
             this.cboxShowPassword.AutoSize = true;
             this.cboxShowPassword.Font = new System.Drawing.Font("Yu Gothic UI Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboxShowPassword.Location = new System.Drawing.Point(483, 337);
+            this.cboxShowPassword.Location = new System.Drawing.Point(483, 308);
             this.cboxShowPassword.Name = "cboxShowPassword";
             this.cboxShowPassword.Size = new System.Drawing.Size(95, 17);
             this.cboxShowPassword.TabIndex = 6;
@@ -117,7 +127,7 @@
             this.btnLogin.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
             this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogin.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLogin.Location = new System.Drawing.Point(777, 367);
+            this.btnLogin.Location = new System.Drawing.Point(776, 349);
             this.btnLogin.Margin = new System.Windows.Forms.Padding(0);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(75, 23);
@@ -142,16 +152,6 @@
             this.foreverClose1.TabIndex = 9;
             this.foreverClose1.Text = "foreverClose1";
             this.foreverClose1.TextColor = System.Drawing.Color.Black;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::Marty_s_Karenderia.Properties.Resources._2;
-            this.pictureBox2.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(455, 500);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox2.TabIndex = 0;
-            this.pictureBox2.TabStop = false;
             // 
             // LoginForm
             // 

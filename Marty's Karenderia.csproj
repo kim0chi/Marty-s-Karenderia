@@ -192,6 +192,12 @@
     <Compile Include="AddMenuItemForm.Designer.cs">
       <DependentUpon>AddMenuItemForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AddStaffForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddStaffForm.Designer.cs">
+      <DependentUpon>AddStaffForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AdminAccountForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -263,6 +269,9 @@
     </Compile>
     <EmbeddedResource Include="AddMenuItemForm.resx">
       <DependentUpon>AddMenuItemForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddStaffForm.resx">
+      <DependentUpon>AddStaffForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AdminAccountForm.resx">
       <DependentUpon>AdminAccountForm.cs</DependentUpon>
