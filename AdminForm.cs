@@ -61,7 +61,9 @@ namespace Marty_s_Karenderia
 
         private void btnPOS_Click_1(object sender, EventArgs e)
         {
-            LoadFormIntoPanel(new PosForm()); // Load the POSForm
+            PosForm posform = new PosForm();
+            this.Close();
+            posform.Show();     
         }
 
         private void btnKitchen_Click_1(object sender, EventArgs e)

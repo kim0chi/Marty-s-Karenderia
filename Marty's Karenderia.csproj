@@ -261,11 +261,17 @@
     <Compile Include="StaffForm.Designer.cs">
       <DependentUpon>StaffForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ucProduct.cs">
+    <Compile Include="ProductTile.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ucProduct.Designer.cs">
-      <DependentUpon>ucProduct.cs</DependentUpon>
+    <Compile Include="ProductTile.Designer.cs">
+      <DependentUpon>ProductTile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TransactionHistoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TransactionHistoryForm.Designer.cs">
+      <DependentUpon>TransactionHistoryForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="AddMenuItemForm.resx">
       <DependentUpon>AddMenuItemForm.cs</DependentUpon>
@@ -313,8 +319,11 @@
     <EmbeddedResource Include="StaffForm.resx">
       <DependentUpon>StaffForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ucProduct.resx">
-      <DependentUpon>ucProduct.cs</DependentUpon>
+    <EmbeddedResource Include="ProductTile.resx">
+      <DependentUpon>ProductTile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransactionHistoryForm.resx">
+      <DependentUpon>TransactionHistoryForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
