@@ -34,7 +34,7 @@
             this.lblRole = new System.Windows.Forms.Label();
             this.panel1 = new ReaLTaiizor.Controls.Panel();
             this.contentPanel = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnEmployeeAccount = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnKitchen = new System.Windows.Forms.Button();
             this.btnPOS = new System.Windows.Forms.Button();
@@ -67,7 +67,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.Wheat;
-            this.panel2.Controls.Add(this.button1);
+            this.panel2.Controls.Add(this.btnEmployeeAccount);
             this.panel2.Controls.Add(this.panel4);
             this.panel2.Controls.Add(this.lblRole);
             this.panel2.Controls.Add(this.pictureBox1);
@@ -119,21 +119,22 @@
             this.contentPanel.Size = new System.Drawing.Size(845, 600);
             this.contentPanel.TabIndex = 26;
             // 
-            // button1
+            // btnEmployeeAccount
             // 
-            this.button1.BackColor = System.Drawing.Color.Wheat;
-            this.button1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Image = global::Marty_s_Karenderia.Properties.Resources.accountant;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(17, 313);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(200, 46);
-            this.button1.TabIndex = 23;
-            this.button1.Text = "          Account";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnEmployeeAccount.BackColor = System.Drawing.Color.Wheat;
+            this.btnEmployeeAccount.Cursor = System.Windows.Forms.Cursors.Default;
+            this.btnEmployeeAccount.FlatAppearance.BorderSize = 0;
+            this.btnEmployeeAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEmployeeAccount.Image = global::Marty_s_Karenderia.Properties.Resources.accountant;
+            this.btnEmployeeAccount.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnEmployeeAccount.Location = new System.Drawing.Point(17, 313);
+            this.btnEmployeeAccount.Name = "btnEmployeeAccount";
+            this.btnEmployeeAccount.Size = new System.Drawing.Size(200, 46);
+            this.btnEmployeeAccount.TabIndex = 23;
+            this.btnEmployeeAccount.Text = "          Account";
+            this.btnEmployeeAccount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnEmployeeAccount.UseVisualStyleBackColor = false;
+            this.btnEmployeeAccount.Click += new System.EventHandler(this.btnEmployeeAccount_Click);
             // 
             // pictureBox1
             // 
@@ -162,6 +163,7 @@
             this.btnKitchen.Text = "          Kitchen";
             this.btnKitchen.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnKitchen.UseVisualStyleBackColor = false;
+            this.btnKitchen.Click += new System.EventHandler(this.btnKitchen_Click);
             // 
             // btnPOS
             // 
@@ -178,6 +180,7 @@
             this.btnPOS.Text = "          POS";
             this.btnPOS.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnPOS.UseVisualStyleBackColor = false;
+            this.btnPOS.Click += new System.EventHandler(this.btnPOS_Click);
             // 
             // hopePictureBox1
             // 
@@ -205,6 +208,7 @@
             this.Font = new System.Drawing.Font("Yu Gothic UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "EmployeeForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EmployeeForm";
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
@@ -219,7 +223,7 @@
 
         private ReaLTaiizor.Controls.ForeverClose btnClose;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnEmployeeAccount;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label lblRole;
         private System.Windows.Forms.PictureBox pictureBox1;

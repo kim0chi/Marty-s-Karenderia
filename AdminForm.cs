@@ -62,9 +62,9 @@ namespace Marty_s_Karenderia
 
         private void btnPOS_Click_1(object sender, EventArgs e)
         {
-            PosForm posform = new PosForm();
-            this.Close();
-            posform.Show();     
+            PosForm posForm = new PosForm(this); // Pass the current instance (AdminForm)
+            this.Hide(); // Hide the AdminForm
+            posForm.Show();
         }
 
         private void btnKitchen_Click_1(object sender, EventArgs e)
@@ -79,7 +79,22 @@ namespace Marty_s_Karenderia
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            this.Close();
+        }
+
+        private void btnStaffPayroll_Click(object sender, EventArgs e)
+        {
+            LoadFormIntoPanel(new PayrollForm());
+        }
+
+        private void btnAdminAccount_Click(object sender, EventArgs e)
+        {
+            LoadFormIntoPanel(new AdminAccountForm());
+        }
+
+        private void btnClose_Click_1(object sender, EventArgs e)
+        {
+            this.Hide();
         }
     }
 }

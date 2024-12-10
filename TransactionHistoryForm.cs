@@ -76,49 +76,93 @@ namespace Marty_s_Karenderia
             this.Close();
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-            string searchText = txtSearch.Text.Trim();
+        //private void btnSearch_Click(object sender, EventArgs e)
+        //{
+        //   // string searchText = txtSearch.Text.Trim();
 
-            if (string.IsNullOrEmpty(searchText))
-            {
-                LoadTransactionHistory();
-                return;
-            }
+        //   // if (string.IsNullOrEmpty(//searchText))
+        //    //{
+        //    //    LoadTransactionHistory();
+        //    //    return;
+        //    //}
 
-            using (var connection = new SqlConnection("Data Source=DESKTOP-K6LHVL9\\SQLEXPRESS;Initial Catalog=\"Marty's_CarenderiaDB\";Integrated Security=True"))
-            {
-                connection.Open();
+        //    using (var connection = new SqlConnection("Data Source=DESKTOP-K6LHVL9\\SQLEXPRESS;Initial Catalog=\"Marty's_CarenderiaDB\";Integrated Security=True"))
+        //    {
+        //        connection.Open();
 
-                string query = @"
-                SELECT 
-                    o.OrderID AS TransactionID,
-                    o.OrderDate AS Date,
-                    o.TotalAmount,
-                    o.TaxAmount,
-                    o.OrderType,
-                    p.PaymentAmount,
-                    p.PaymentMethod
-                FROM 
-                    Orders o
-                LEFT JOIN 
-                    Payments p ON o.OrderID = p.OrderID";
+        //        string query = @"
+        //        SELECT 
+        //            o.OrderID AS TransactionID,
+        //            o.OrderDate AS Date,
+        //            o.TotalAmount,
+        //            o.TaxAmount,
+        //            o.OrderType,
+        //            p.PaymentAmount,
+        //            p.PaymentMethod
+        //        FROM 
+        //            Orders o
+        //        LEFT JOIN 
+        //            Payments p ON o.OrderID = p.OrderID";
 
 
-                using (var command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@Search", $"%{searchText}%");
+        //        using (var command = new SqlCommand(query, connection))
+        //        {
+        //            command.Parameters.AddWithValue("@Search", $"%{searchText}%");
 
-                    using (var adapter = new SqlDataAdapter(command))
-                    {
-                        var table = new DataTable();
-                        adapter.Fill(table);
+        //            using (var adapter = new SqlDataAdapter(command))
+        //            {
+        //                var table = new DataTable();
+        //                adapter.Fill(table);
 
-                        dgvTransactionHistory.DataSource = table;
-                    }
-                }
-            }
-        }
+        //                dgvTransactionHistory.DataSource = table;
+        //            }
+        //        }
+        //    }
+        //}
+
+        //private void btnSearch_TextChanged(object sender, EventArgs e)
+        //{
+        //    //string searchText = txtSearch.Text.Trim();
+
+        //    if (string.IsNullOrEmpty(searchText))
+        //    {
+        //        LoadTransactionHistory();
+        //        return;
+        //    }
+
+        //    using (var connection = new SqlConnection("Data Source=DESKTOP-K6LHVL9\\SQLEXPRESS;Initial Catalog=\"Marty's_CarenderiaDB\";Integrated Security=True"))
+        //    {
+        //        connection.Open();
+
+        //        string query = @"
+        //        SELECT 
+        //            o.OrderID AS TransactionID,
+        //            o.OrderDate AS Date,
+        //            o.TotalAmount,
+        //            o.TaxAmount,
+        //            o.OrderType,
+        //            p.PaymentAmount,
+        //            p.PaymentMethod
+        //        FROM 
+        //            Orders o
+        //        LEFT JOIN 
+        //            Payments p ON o.OrderID = p.OrderID";
+
+
+        //        using (var command = new SqlCommand(query, connection))
+        //        {
+        //            command.Parameters.AddWithValue("@Search", $"%{searchText}%");
+
+        //            using (var adapter = new SqlDataAdapter(command))
+        //            {
+        //                var table = new DataTable();
+        //                adapter.Fill(table);
+
+        //                dgvTransactionHistory.DataSource = table;
+        //            }
+        //        }
+        //    }
+        //}
 
         private void dgvTransactionHistory_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {

@@ -1,23 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Marty_s_Karenderia
 {
-    public partial class LoginForm : Form
+    public partial class SwitchUserForm : Form
     {
-        public LoginForm()
+        public SwitchUserForm()
         {
             InitializeComponent();
-        }
-
-        private void LoginForm_Load(object sender, EventArgs e)
-        {
-            // Ensure the password is masked when the form loads
-            txtPassword.UseSystemPasswordChar = false;
-
-            // Ensure the checkbox reflects the initial state (unchecked)
-            cboxShowPassword.Checked = false;
         }
 
         private void cboxShowPassword_CheckedChanged(object sender, EventArgs e)
@@ -105,7 +103,5 @@ namespace Marty_s_Karenderia
                 }
             }
         }
-
-
     }
 }

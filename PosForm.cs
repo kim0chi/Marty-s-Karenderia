@@ -10,6 +10,7 @@ using System.Text;
 using System.Windows.Forms;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
+using ReaLTaiizor.Forms;
 
 
 
@@ -18,8 +19,9 @@ namespace Marty_s_Karenderia
     public partial class PosForm : Form
     {
         private DataTable cartTable;
+        private Form parentForm;
 
-        public PosForm()
+        public PosForm(Form parent)
         {
             InitializeComponent();
             InitializeCartTable();
@@ -28,6 +30,14 @@ namespace Marty_s_Karenderia
             ConfigureCartGridView();
             ConfigureCartGrid();
             LoadAllCategories();
+            this.FormClosed += new FormClosedEventHandler(PosForm_FormClosed);
+            parentForm = parent;
+
+        }
+        private void PosForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            // Show the parent form when POSForm is closed
+            parentForm.Show();
         }
 
         // Initializes the cart DataTable
@@ -273,9 +283,7 @@ namespace Marty_s_Karenderia
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            AdminForm admin = new AdminForm(); // Replace with Admin or Employee form logic
-            admin.Show();
+            this.Close();
         }
 
 

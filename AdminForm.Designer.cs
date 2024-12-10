@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminForm));
-            this.btnClose = new ReaLTaiizor.Controls.ForeverClose();
             this.panel1 = new ReaLTaiizor.Controls.Panel();
+            this.hopePictureBox1 = new ReaLTaiizor.Controls.HopePictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnStaffPayroll = new System.Windows.Forms.Button();
+            this.btnTransactionHistory = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.lblRole = new System.Windows.Forms.Label();
-            this.contentPanel = new System.Windows.Forms.Panel();
-            this.btnTransactionHistory = new System.Windows.Forms.Button();
             this.btnMenu = new System.Windows.Forms.Button();
             this.btnHome = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -43,37 +43,19 @@
             this.btnKitchen = new System.Windows.Forms.Button();
             this.btnStaff = new System.Windows.Forms.Button();
             this.btnPOS = new System.Windows.Forms.Button();
-            this.hopePictureBox1 = new ReaLTaiizor.Controls.HopePictureBox();
+            this.contentPanel = new System.Windows.Forms.Panel();
+            this.btnClose = new ReaLTaiizor.Controls.ForeverClose();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.hopePictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.hopePictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // btnClose
-            // 
-            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(24)))), ((int)(((byte)(35)))));
-            this.btnClose.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(24)))), ((int)(((byte)(35)))));
-            this.btnClose.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnClose.DefaultLocation = true;
-            this.btnClose.DownColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(24)))), ((int)(((byte)(35)))));
-            this.btnClose.Font = new System.Drawing.Font("Marlett", 10F);
-            this.btnClose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(24)))), ((int)(((byte)(35)))));
-            this.btnClose.Location = new System.Drawing.Point(1029, 16);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.OverColor = System.Drawing.Color.White;
-            this.btnClose.Size = new System.Drawing.Size(18, 18);
-            this.btnClose.TabIndex = 13;
-            this.btnClose.Text = "foreverClose2";
-            this.btnClose.TextColor = System.Drawing.Color.White;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(24)))), ((int)(((byte)(35)))));
-            this.panel1.Controls.Add(this.hopePictureBox1);
             this.panel1.Controls.Add(this.btnClose);
+            this.panel1.Controls.Add(this.hopePictureBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.EdgeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(41)))), ((int)(((byte)(50)))));
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -84,9 +66,24 @@
             this.panel1.TabIndex = 14;
             this.panel1.Text = "panel1";
             // 
+            // hopePictureBox1
+            // 
+            this.hopePictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(196)))), ((int)(((byte)(204)))));
+            this.hopePictureBox1.Image = global::Marty_s_Karenderia.Properties.Resources.Screenshot_2024_12_06_153747;
+            this.hopePictureBox1.Location = new System.Drawing.Point(6, 5);
+            this.hopePictureBox1.Name = "hopePictureBox1";
+            this.hopePictureBox1.PixelOffsetType = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+            this.hopePictureBox1.Size = new System.Drawing.Size(372, 51);
+            this.hopePictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.hopePictureBox1.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            this.hopePictureBox1.TabIndex = 15;
+            this.hopePictureBox1.TabStop = false;
+            this.hopePictureBox1.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.Wheat;
+            this.panel2.Controls.Add(this.btnStaffPayroll);
             this.panel2.Controls.Add(this.btnTransactionHistory);
             this.panel2.Controls.Add(this.panel4);
             this.panel2.Controls.Add(this.lblRole);
@@ -103,29 +100,22 @@
             this.panel2.Size = new System.Drawing.Size(217, 600);
             this.panel2.TabIndex = 22;
             // 
-            // panel4
+            // btnStaffPayroll
             // 
-            this.panel4.Location = new System.Drawing.Point(214, 0);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(845, 600);
-            this.panel4.TabIndex = 0;
-            // 
-            // lblRole
-            // 
-            this.lblRole.AutoSize = true;
-            this.lblRole.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRole.Location = new System.Drawing.Point(60, 79);
-            this.lblRole.Name = "lblRole";
-            this.lblRole.Size = new System.Drawing.Size(69, 25);
-            this.lblRole.TabIndex = 22;
-            this.lblRole.Text = "Admin";
-            // 
-            // contentPanel
-            // 
-            this.contentPanel.Location = new System.Drawing.Point(214, 59);
-            this.contentPanel.Name = "contentPanel";
-            this.contentPanel.Size = new System.Drawing.Size(845, 600);
-            this.contentPanel.TabIndex = 23;
+            this.btnStaffPayroll.BackColor = System.Drawing.Color.Wheat;
+            this.btnStaffPayroll.Cursor = System.Windows.Forms.Cursors.Default;
+            this.btnStaffPayroll.FlatAppearance.BorderSize = 0;
+            this.btnStaffPayroll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStaffPayroll.Image = global::Marty_s_Karenderia.Properties.Resources.icons8_payroll_24;
+            this.btnStaffPayroll.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnStaffPayroll.Location = new System.Drawing.Point(17, 484);
+            this.btnStaffPayroll.Name = "btnStaffPayroll";
+            this.btnStaffPayroll.Size = new System.Drawing.Size(200, 46);
+            this.btnStaffPayroll.TabIndex = 25;
+            this.btnStaffPayroll.Text = "          Staff Payroll";
+            this.btnStaffPayroll.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnStaffPayroll.UseVisualStyleBackColor = false;
+            this.btnStaffPayroll.Click += new System.EventHandler(this.btnStaffPayroll_Click);
             // 
             // btnTransactionHistory
             // 
@@ -143,6 +133,23 @@
             this.btnTransactionHistory.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTransactionHistory.UseVisualStyleBackColor = false;
             this.btnTransactionHistory.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // panel4
+            // 
+            this.panel4.Location = new System.Drawing.Point(214, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(845, 600);
+            this.panel4.TabIndex = 0;
+            // 
+            // lblRole
+            // 
+            this.lblRole.AutoSize = true;
+            this.lblRole.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRole.Location = new System.Drawing.Point(60, 79);
+            this.lblRole.Name = "lblRole";
+            this.lblRole.Size = new System.Drawing.Size(69, 25);
+            this.lblRole.TabIndex = 22;
+            this.lblRole.Text = "Admin";
             // 
             // btnMenu
             // 
@@ -235,7 +242,7 @@
             this.btnStaff.Name = "btnStaff";
             this.btnStaff.Size = new System.Drawing.Size(200, 46);
             this.btnStaff.TabIndex = 18;
-            this.btnStaff.Text = "          Staff";
+            this.btnStaff.Text = "          Staff Account";
             this.btnStaff.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnStaff.UseVisualStyleBackColor = false;
             this.btnStaff.Click += new System.EventHandler(this.btnStaff_Click_1);
@@ -257,19 +264,31 @@
             this.btnPOS.UseVisualStyleBackColor = false;
             this.btnPOS.Click += new System.EventHandler(this.btnPOS_Click_1);
             // 
-            // hopePictureBox1
+            // contentPanel
             // 
-            this.hopePictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(196)))), ((int)(((byte)(204)))));
-            this.hopePictureBox1.Image = global::Marty_s_Karenderia.Properties.Resources.Screenshot_2024_12_06_153747;
-            this.hopePictureBox1.Location = new System.Drawing.Point(6, 5);
-            this.hopePictureBox1.Name = "hopePictureBox1";
-            this.hopePictureBox1.PixelOffsetType = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
-            this.hopePictureBox1.Size = new System.Drawing.Size(372, 51);
-            this.hopePictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.hopePictureBox1.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            this.hopePictureBox1.TabIndex = 15;
-            this.hopePictureBox1.TabStop = false;
-            this.hopePictureBox1.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            this.contentPanel.Location = new System.Drawing.Point(214, 59);
+            this.contentPanel.Name = "contentPanel";
+            this.contentPanel.Size = new System.Drawing.Size(845, 600);
+            this.contentPanel.TabIndex = 23;
+            // 
+            // btnClose
+            // 
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(24)))), ((int)(((byte)(35)))));
+            this.btnClose.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(24)))), ((int)(((byte)(35)))));
+            this.btnClose.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnClose.DefaultLocation = true;
+            this.btnClose.DownColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(24)))), ((int)(((byte)(35)))));
+            this.btnClose.Font = new System.Drawing.Font("Marlett", 10F);
+            this.btnClose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(24)))), ((int)(((byte)(35)))));
+            this.btnClose.Location = new System.Drawing.Point(1033, 8);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.OverColor = System.Drawing.Color.White;
+            this.btnClose.Size = new System.Drawing.Size(18, 18);
+            this.btnClose.TabIndex = 16;
+            this.btnClose.Text = "foreverClose2";
+            this.btnClose.TextColor = System.Drawing.Color.White;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click_1);
             // 
             // AdminForm
             // 
@@ -287,16 +306,15 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainForm";
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.hopePictureBox1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.hopePictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private ReaLTaiizor.Controls.ForeverClose btnClose;
         private ReaLTaiizor.Controls.Panel panel1;
         private ReaLTaiizor.Controls.HopePictureBox hopePictureBox1;
         private System.Windows.Forms.Button btnHome;
@@ -311,5 +329,7 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button btnTransactionHistory;
         private System.Windows.Forms.Panel contentPanel;
+        private System.Windows.Forms.Button btnStaffPayroll;
+        private ReaLTaiizor.Controls.ForeverClose btnClose;
     }
 }

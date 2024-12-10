@@ -88,10 +88,12 @@
             this.dgvStaff.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvStaff.Location = new System.Drawing.Point(35, 104);
             this.dgvStaff.Name = "dgvStaff";
-            this.dgvStaff.ReadOnly = true;
             this.dgvStaff.Size = new System.Drawing.Size(778, 463);
             this.dgvStaff.TabIndex = 9;
             this.dgvStaff.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStaff_CellContentClick);
+            this.dgvStaff.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStaff_CellEndEdit);
+            this.dgvStaff.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStaff_CellValueChanged);
+            this.dgvStaff.CurrentCellDirtyStateChanged += new System.EventHandler(this.DgvStaff_CurrentCellDirtyStateChanged);
             // 
             // StaffForm
             // 

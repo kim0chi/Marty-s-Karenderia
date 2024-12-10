@@ -16,7 +16,15 @@ namespace Marty_s_Karenderia
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginForm());
+            try
+            {
+                LoginForm login = new LoginForm();
+                Application.Run(login);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while starting the application: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
