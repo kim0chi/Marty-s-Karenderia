@@ -466,9 +466,9 @@ namespace Marty_s_Karenderia
 
                 // Save the main order
                 var query = @"
-        INSERT INTO Orders (OrderDate, TotalAmount, OrderType, TaxAmount)
-        OUTPUT INSERTED.OrderID
-        VALUES (@Date, @TotalAmount, @OrderType, @TaxAmount)";
+                INSERT INTO Orders (OrderDate, TotalAmount, OrderType, TaxAmount, ChangeAmount)
+                OUTPUT INSERTED.OrderID
+                VALUES (@Date, @TotalAmount, @OrderType, @TaxAmount, @ChangeAmount)";
 
                 int orderID;
 
@@ -478,6 +478,7 @@ namespace Marty_s_Karenderia
                     command.Parameters.AddWithValue("@TotalAmount", total);
                     command.Parameters.AddWithValue("@OrderType", rbDineIn.Checked ? "Dine-In" : "Takeout");
                     command.Parameters.AddWithValue("@TaxAmount", tax);
+                    command.Parameters.AddWithValue("@ChangeAmount", change);
 
                     orderID = (int)command.ExecuteScalar();
                 }
@@ -486,8 +487,8 @@ namespace Marty_s_Karenderia
                 foreach (DataRow row in cartTable.Rows)
                 {
                     var itemQuery = @"
-            INSERT INTO OrderDetails (OrderID, MenuID, Quantity, Subtotal)
-            VALUES (@OrderID, @MenuID, @Quantity, @Subtotal)";
+    INSERT INTO OrderDetails (OrderID, MenuID, Quantity, Subtotal)
+    VALUES (@OrderID, @MenuID, @Quantity, @Subtotal)";
 
                     using (var itemCommand = new SqlCommand(itemQuery, connection))
                     {
@@ -501,9 +502,10 @@ namespace Marty_s_Karenderia
                 }
 
                 // Save payment details
-                SavePaymentDetails(connection, orderID, amountPaid, change, paymentMethod);
+                SavePaymentDetails(connection, orderID, amountPaid, change, paymentMethod, tax);
             }
         }
+
 
         private void UpdateCart()
         {
@@ -680,11 +682,11 @@ namespace Marty_s_Karenderia
             });
         }
 
-        private void SavePaymentDetails(SqlConnection connection, int orderID, decimal amountPaid, decimal change, string paymentMethod)
+        private void SavePaymentDetails(SqlConnection connection, int orderID, decimal amountPaid, decimal change, string paymentMethod, decimal tax)
         {
             var query = @"
-        INSERT INTO Payments (OrderID, PaymentAmount, PaymentMethod, ChangeAmount, PaymentDate)
-        VALUES (@OrderID, @PaymentAmount, @PaymentMethod, @ChangeAmount, @PaymentDate)";
+            INSERT INTO Payments (OrderID, PaymentAmount, PaymentMethod, ChangeAmount, PaymentDate, TaxAmount)
+            VALUES (@OrderID, @PaymentAmount, @PaymentMethod, @ChangeAmount, @PaymentDate, @TaxAmount)";
 
             using (var command = new SqlCommand(query, connection))
             {
@@ -693,12 +695,11 @@ namespace Marty_s_Karenderia
                 command.Parameters.AddWithValue("@PaymentMethod", paymentMethod);
                 command.Parameters.AddWithValue("@ChangeAmount", change);
                 command.Parameters.AddWithValue("@PaymentDate", DateTime.Now);
+                command.Parameters.AddWithValue("@TaxAmount", tax);
 
                 command.ExecuteNonQuery();
             }
         }
-
-
 
         private void btnKitchen_Click(object sender, EventArgs e)
         {
