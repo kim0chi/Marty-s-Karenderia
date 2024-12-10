@@ -139,7 +139,7 @@
             this.btnClearOrder.Image = null;
             this.btnClearOrder.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnClearOrder.InactiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
-            this.btnClearOrder.Location = new System.Drawing.Point(684, 28);
+            this.btnClearOrder.Location = new System.Drawing.Point(891, 28);
             this.btnClearOrder.Name = "btnClearOrder";
             this.btnClearOrder.PressedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
             this.btnClearOrder.PressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
@@ -252,13 +252,13 @@
             this.btnKitchen.Image = null;
             this.btnKitchen.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnKitchen.InactiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
-            this.btnKitchen.Location = new System.Drawing.Point(810, 28);
+            this.btnKitchen.Location = new System.Drawing.Point(27, 28);
             this.btnKitchen.Name = "btnKitchen";
             this.btnKitchen.PressedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
             this.btnKitchen.PressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
-            this.btnKitchen.Size = new System.Drawing.Size(201, 40);
+            this.btnKitchen.Size = new System.Drawing.Size(126, 40);
             this.btnKitchen.TabIndex = 14;
-            this.btnKitchen.Text = "Send Order to Kitchen";
+            this.btnKitchen.Text = "Kitchen Status";
             this.btnKitchen.TextAlignment = System.Drawing.StringAlignment.Center;
             this.btnKitchen.Click += new System.EventHandler(this.btnKitchen_Click);
             // 

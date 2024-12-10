@@ -70,6 +70,7 @@
             this.txtSearch.TabIndex = 17;
             this.txtSearch.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtSearch.UseSystemPasswordChar = false;
+            this.txtSearch.TextChanged += new System.EventHandler(this.btnSearch_Click);
             // 
             // label2
             // 

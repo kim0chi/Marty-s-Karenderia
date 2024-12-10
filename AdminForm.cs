@@ -22,6 +22,7 @@ namespace Marty_s_Karenderia
         public AdminForm()
         {
             InitializeComponent();
+            LoadFormIntoPanel(new HomeForm());
         }
 
         private void LoadFormIntoPanel(Form form)

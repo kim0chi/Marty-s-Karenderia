@@ -364,6 +364,12 @@
     <Compile Include="TransactionHistoryForm.Designer.cs">
       <DependentUpon>TransactionHistoryForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ViewKitchen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ViewKitchen.Designer.cs">
+      <DependentUpon>ViewKitchen.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AddMenuItemForm.resx">
       <DependentUpon>AddMenuItemForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -421,6 +427,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TransactionHistoryForm.resx">
       <DependentUpon>TransactionHistoryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ViewKitchen.resx">
+      <DependentUpon>ViewKitchen.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

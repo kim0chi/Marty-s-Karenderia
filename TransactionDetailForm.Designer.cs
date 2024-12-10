@@ -29,15 +29,16 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnClose = new ReaLTaiizor.Controls.ForeverClose();
             this.bigLabel1 = new ReaLTaiizor.Controls.BigLabel();
             this.lblPaymentAmount = new System.Windows.Forms.Label();
             this.lblTotalAmount = new System.Windows.Forms.Label();
             this.dgvOrderDetails = new System.Windows.Forms.DataGridView();
-            this.btnClose = new ReaLTaiizor.Controls.ForeverClose();
             this.lblOrderType = new System.Windows.Forms.Label();
             this.lblChangeAmount = new System.Windows.Forms.Label();
             this.lblOrderDate = new System.Windows.Forms.Label();
             this.lblPaymentMethod = new System.Windows.Forms.Label();
+            this.lblTaxAmount = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrderDetails)).BeginInit();
             this.SuspendLayout();
@@ -52,6 +53,24 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(511, 53);
             this.panel1.TabIndex = 16;
+            // 
+            // btnClose
+            // 
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(24)))), ((int)(((byte)(35)))));
+            this.btnClose.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(24)))), ((int)(((byte)(35)))));
+            this.btnClose.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnClose.DefaultLocation = true;
+            this.btnClose.DownColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(24)))), ((int)(((byte)(35)))));
+            this.btnClose.Font = new System.Drawing.Font("Marlett", 10F);
+            this.btnClose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(24)))), ((int)(((byte)(35)))));
+            this.btnClose.Location = new System.Drawing.Point(481, 16);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.OverColor = System.Drawing.Color.White;
+            this.btnClose.Size = new System.Drawing.Size(18, 18);
+            this.btnClose.TabIndex = 26;
+            this.btnClose.Text = "foreverClose2";
+            this.btnClose.TextColor = System.Drawing.Color.White;
             // 
             // bigLabel1
             // 
@@ -69,7 +88,7 @@
             // 
             this.lblPaymentAmount.AutoSize = true;
             this.lblPaymentAmount.Font = new System.Drawing.Font("Yu Gothic UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPaymentAmount.Location = new System.Drawing.Point(26, 182);
+            this.lblPaymentAmount.Location = new System.Drawing.Point(26, 201);
             this.lblPaymentAmount.Name = "lblPaymentAmount";
             this.lblPaymentAmount.Size = new System.Drawing.Size(128, 20);
             this.lblPaymentAmount.TabIndex = 19;
@@ -79,7 +98,7 @@
             // 
             this.lblTotalAmount.AutoSize = true;
             this.lblTotalAmount.Font = new System.Drawing.Font("Yu Gothic UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalAmount.Location = new System.Drawing.Point(26, 148);
+            this.lblTotalAmount.Location = new System.Drawing.Point(26, 137);
             this.lblTotalAmount.Name = "lblTotalAmount";
             this.lblTotalAmount.Size = new System.Drawing.Size(100, 20);
             this.lblTotalAmount.TabIndex = 18;
@@ -87,29 +106,13 @@
             // 
             // dgvOrderDetails
             // 
+            this.dgvOrderDetails.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvOrderDetails.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dgvOrderDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvOrderDetails.Location = new System.Drawing.Point(17, 271);
             this.dgvOrderDetails.Name = "dgvOrderDetails";
             this.dgvOrderDetails.Size = new System.Drawing.Size(481, 219);
             this.dgvOrderDetails.TabIndex = 25;
-            // 
-            // btnClose
-            // 
-            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(24)))), ((int)(((byte)(35)))));
-            this.btnClose.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(24)))), ((int)(((byte)(35)))));
-            this.btnClose.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnClose.DefaultLocation = true;
-            this.btnClose.DownColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(24)))), ((int)(((byte)(35)))));
-            this.btnClose.Font = new System.Drawing.Font("Marlett", 10F);
-            this.btnClose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(24)))), ((int)(((byte)(35)))));
-            this.btnClose.Location = new System.Drawing.Point(490, 3);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.OverColor = System.Drawing.Color.White;
-            this.btnClose.Size = new System.Drawing.Size(18, 18);
-            this.btnClose.TabIndex = 26;
-            this.btnClose.Text = "foreverClose2";
-            this.btnClose.TextColor = System.Drawing.Color.White;
             // 
             // lblOrderType
             // 
@@ -125,7 +128,7 @@
             // 
             this.lblChangeAmount.AutoSize = true;
             this.lblChangeAmount.Font = new System.Drawing.Font("Yu Gothic UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblChangeAmount.Location = new System.Drawing.Point(26, 214);
+            this.lblChangeAmount.Location = new System.Drawing.Point(26, 233);
             this.lblChangeAmount.Name = "lblChangeAmount";
             this.lblChangeAmount.Size = new System.Drawing.Size(61, 20);
             this.lblChangeAmount.TabIndex = 27;
@@ -151,11 +154,22 @@
             this.lblPaymentMethod.TabIndex = 30;
             this.lblPaymentMethod.Text = "Payment Method";
             // 
+            // lblTaxAmount
+            // 
+            this.lblTaxAmount.AutoSize = true;
+            this.lblTaxAmount.Font = new System.Drawing.Font("Yu Gothic UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTaxAmount.Location = new System.Drawing.Point(27, 170);
+            this.lblTaxAmount.Name = "lblTaxAmount";
+            this.lblTaxAmount.Size = new System.Drawing.Size(100, 20);
+            this.lblTaxAmount.TabIndex = 31;
+            this.lblTaxAmount.Text = "Total Amount";
+            // 
             // TransactionDetailForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(511, 504);
+            this.Controls.Add(this.lblTaxAmount);
             this.Controls.Add(this.lblPaymentMethod);
             this.Controls.Add(this.lblOrderDate);
             this.Controls.Add(this.lblChangeAmount);
@@ -188,5 +202,6 @@
         private System.Windows.Forms.Label lblChangeAmount;
         private System.Windows.Forms.Label lblOrderDate;
         private System.Windows.Forms.Label lblPaymentMethod;
+        private System.Windows.Forms.Label lblTaxAmount;
     }
 }

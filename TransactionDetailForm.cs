@@ -54,11 +54,9 @@ namespace Marty_s_Karenderia
                 string queryTransactionSummary = @"
                 SELECT 
                     o.TotalAmount,
+                    o.TaxAmount,
                     o.OrderDate AS Date,
-                CASE 
-                    WHEN o.TableNumber IS NULL THEN 'Takeout'
-                    ELSE 'Dine-In'
-                    END AS OrderType,
+                    o.OrderType,
                     ISNULL(p.PaymentAmount, 0) AS PaymentAmount,
                     ISNULL(p.PaymentMethod, 'N/A') AS PaymentMethod,
                     ISNULL(p.ChangeAmount, 0) AS ChangeAmount
@@ -68,6 +66,7 @@ namespace Marty_s_Karenderia
                     Payments p ON o.OrderID = p.OrderID
                 WHERE 
                     o.OrderID = @OrderID;";
+
 
                 using (var command = new SqlCommand(queryTransactionSummary, connection))
                 {
@@ -82,13 +81,13 @@ namespace Marty_s_Karenderia
                             lblOrderType.Text = $"Order Type: {reader["OrderType"].ToString()}";
 
                             // Handle nullable fields safely
-                            lblPaymentAmount.Text = $"Payment Amount: ₱{(reader["PaymentAmount"] is DBNull ? 0 : reader["PaymentAmount"])}";
-                            lblPaymentMethod.Text = $"Payment Method: {reader["PaymentMethod"].ToString() ?? "N/A"}";
-                            lblChangeAmount.Text = $"Change Amount: ₱{(reader["ChangeAmount"] is DBNull ? 0 : reader["ChangeAmount"])}";
+                            lblPaymentAmount.Text = $"Payment Amount: ₱{reader["PaymentAmount"]}";
+                            lblPaymentMethod.Text = $"Payment Method: {reader["PaymentMethod"]}";
+                            lblChangeAmount.Text = $"Change Amount: ₱{reader["ChangeAmount"]}";
+                            lblTaxAmount.Text = $"Tax Amount: ₱{reader["TaxAmount"]}";
                         }
                     }
                 }
-
             }
         }
 

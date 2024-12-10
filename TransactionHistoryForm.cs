@@ -26,10 +26,8 @@ namespace Marty_s_Karenderia
                     o.OrderID AS TransactionID,
                     o.OrderDate AS Date,
                     o.TotalAmount,
-                    CASE 
-                        WHEN o.TableNumber IS NULL THEN 'Takeout'
-                        ELSE 'Dine-In'
-                    END AS OrderType,
+                    o.TaxAmount,
+                    o.OrderType,
                     p.PaymentAmount,
                     p.PaymentMethod
                 FROM 
@@ -58,10 +56,20 @@ namespace Marty_s_Karenderia
             dgvTransactionHistory.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 10, FontStyle.Bold);
             dgvTransactionHistory.DefaultCellStyle.Font = new Font("Arial", 9);
 
-            dgvTransactionHistory.Columns["Date"].DefaultCellStyle.Format = "MM/dd/yyyy HH:mm";
-            dgvTransactionHistory.Columns["TotalAmount"].DefaultCellStyle.Format = "C2";
-            dgvTransactionHistory.Columns["PaymentAmount"].DefaultCellStyle.Format = "C2";
+            // Format columns
+            if (dgvTransactionHistory.Columns["Date"] != null)
+                dgvTransactionHistory.Columns["Date"].DefaultCellStyle.Format = "MM/dd/yyyy HH:mm";
+
+            if (dgvTransactionHistory.Columns["TotalAmount"] != null)
+                dgvTransactionHistory.Columns["TotalAmount"].DefaultCellStyle.Format = "C2";
+
+            if (dgvTransactionHistory.Columns["PaymentAmount"] != null)
+                dgvTransactionHistory.Columns["PaymentAmount"].DefaultCellStyle.Format = "C2";
+
+            if (dgvTransactionHistory.Columns["TaxAmount"] != null)
+                dgvTransactionHistory.Columns["TaxAmount"].DefaultCellStyle.Format = "C2";
         }
+
 
         private void btnClose_Click(object sender, EventArgs e)
         {
@@ -87,19 +95,15 @@ namespace Marty_s_Karenderia
                     o.OrderID AS TransactionID,
                     o.OrderDate AS Date,
                     o.TotalAmount,
-                    CASE 
-                        WHEN o.TableNumber IS NULL THEN 'Takeout'
-                        ELSE 'Dine-In'
-                    END AS OrderType,
+                    o.TaxAmount,
+                    o.OrderType,
                     p.PaymentAmount,
                     p.PaymentMethod
                 FROM 
                     Orders o
                 LEFT JOIN 
-                    Payments p ON o.OrderID = p.OrderID
-                WHERE 
-                    o.OrderID LIKE @Search OR
-                    CAST(o.OrderDate AS NVARCHAR) LIKE @Search";
+                    Payments p ON o.OrderID = p.OrderID";
+
 
                 using (var command = new SqlCommand(query, connection))
                 {

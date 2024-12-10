@@ -457,21 +457,27 @@ namespace Marty_s_Karenderia
             {
                 connection.Open();
 
+                // Calculate subtotal, tax, and total
+                decimal subtotal = cartTable.AsEnumerable()
+                    .Where(row => row["Subtotal"] != DBNull.Value)
+                    .Sum(row => row.Field<decimal>("Subtotal"));
+                decimal tax = subtotal * 0.12m; // Example 12% tax rate
+                decimal total = subtotal + tax;
+
                 // Save the main order
                 var query = @"
-        INSERT INTO Orders (OrderDate, TotalAmount, OrderType)
+        INSERT INTO Orders (OrderDate, TotalAmount, OrderType, TaxAmount)
         OUTPUT INSERTED.OrderID
-        VALUES (@Date, @TotalAmount, @OrderType)";
+        VALUES (@Date, @TotalAmount, @OrderType, @TaxAmount)";
 
                 int orderID;
 
                 using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Date", DateTime.Now);
-                    command.Parameters.AddWithValue("@TotalAmount", cartTable.AsEnumerable()
-                        .Where(row => row["Subtotal"] != DBNull.Value)
-                        .Sum(row => row.Field<decimal>("Subtotal")));
+                    command.Parameters.AddWithValue("@TotalAmount", total);
                     command.Parameters.AddWithValue("@OrderType", rbDineIn.Checked ? "Dine-In" : "Takeout");
+                    command.Parameters.AddWithValue("@TaxAmount", tax);
 
                     orderID = (int)command.ExecuteScalar();
                 }
@@ -498,7 +504,6 @@ namespace Marty_s_Karenderia
                 SavePaymentDetails(connection, orderID, amountPaid, change, paymentMethod);
             }
         }
-
 
         private void UpdateCart()
         {
@@ -586,14 +591,6 @@ namespace Marty_s_Karenderia
                     MessageBox.Show("Payment canceled. The transaction was not completed.", "Payment Canceled", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
-        }
-
-
-        private decimal GetTotalAmount()
-        {
-            return cartTable.AsEnumerable()
-                .Where(row => row["Subtotal"] != DBNull.Value)
-                .Sum(row => row.Field<decimal>("Subtotal"));
         }
 
         private void GenerateReceiptPDF(decimal amountPaid, decimal change)
@@ -686,8 +683,8 @@ namespace Marty_s_Karenderia
         private void SavePaymentDetails(SqlConnection connection, int orderID, decimal amountPaid, decimal change, string paymentMethod)
         {
             var query = @"
-    INSERT INTO Payments (OrderID, PaymentAmount, PaymentMethod, ChangeAmount, PaymentDate)
-    VALUES (@OrderID, @PaymentAmount, @PaymentMethod, @ChangeAmount, @PaymentDate)";
+        INSERT INTO Payments (OrderID, PaymentAmount, PaymentMethod, ChangeAmount, PaymentDate)
+        VALUES (@OrderID, @PaymentAmount, @PaymentMethod, @ChangeAmount, @PaymentDate)";
 
             using (var command = new SqlCommand(query, connection))
             {
@@ -703,18 +700,9 @@ namespace Marty_s_Karenderia
 
 
 
-        private int GetLatestOrderID(SqlConnection connection)
-        {
-            var query = "SELECT MAX(OrderID) FROM Orders";
-            using (var command = new SqlCommand(query, connection))
-            {
-                return (int)command.ExecuteScalar();
-            }
-        }
-
         private void btnKitchen_Click(object sender, EventArgs e)
         {
-            using (var kitchenForm = new KitchenForm())
+            using (var kitchenForm = new ViewKitchen())
             {
                 kitchenForm.ShowDialog();
             }

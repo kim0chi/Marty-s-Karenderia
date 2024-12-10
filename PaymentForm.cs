@@ -24,49 +24,51 @@ namespace Marty_s_Karenderia
 
         private void btnPay_Click(object sender, EventArgs e)
         {
-            // Try to parse the entered amount paid
-            if (decimal.TryParse(txtAmountPaid.Text.Trim(), out decimal amountPaid))
+            if (decimal.TryParse(txtAmountPaid.Text, out decimal amountPaid))
             {
-                AmountPaid = amountPaid;
-
-                // Extract the numeric value from lblTotalAmount.Text
+                // Extract only the numeric value from lblTotalAmount.Text
                 string totalText = lblTotalAmount.Text.Replace("₱", "").Replace("Total: ", "").Trim();
 
-                // Try parsing the cleaned-up total amount
-                if (decimal.TryParse(totalText, out decimal totalAmount))
+                // Safely parse the extracted value
+                if (!decimal.TryParse(totalText, out decimal totalAmount))
                 {
-                    Change = AmountPaid - totalAmount;
-
-                    if (Change < 0)
-                    {
-                        MessageBox.Show("Insufficient payment amount.", "Payment Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-
-                    // Get selected payment method
-                    if (rbCash.Checked) PaymentMethod = "Cash";
-                    else if (rbCreditCard.Checked) PaymentMethod = "Credit Card";
-                    else if (rbMobilePayment.Checked) PaymentMethod = "Mobile Payment";
-                    else
-                    {
-                        MessageBox.Show("Please select a payment method.", "Payment Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-
-                    // Close the form and pass the payment details back to the parent form
-                    DialogResult = DialogResult.OK;
-                    Close();
+                    MessageBox.Show("Unable to parse the total amount.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
+
+                decimal change = amountPaid - totalAmount;
+
+                // Validate if payment is sufficient
+                if (change < 0)
+                {
+                    MessageBox.Show("Insufficient payment amount.", "Payment Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Get selected payment method
+                if (rbCash.Checked) PaymentMethod = "Cash";
+                else if (rbCreditCard.Checked) PaymentMethod = "Credit Card";
+                else if (rbMobilePayment.Checked) PaymentMethod = "Mobile Payment";
                 else
                 {
-                    MessageBox.Show("Invalid total amount format.", "Payment Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Please select a payment method.", "Payment Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
+
+                // Set values for payment
+                AmountPaid = amountPaid;
+                Change = change;
+
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
             else
             {
-                MessageBox.Show("Invalid payment amount entered.", "Payment Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Invalid payment amount.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+
 
 
         private void btnCancel_Click(object sender, EventArgs e)
