@@ -73,7 +73,7 @@ namespace Marty_s_Karenderia
 
         private void button1_Click(object sender, EventArgs e)
         {
-            LoadFormIntoPanel(new AdminAccountForm());
+            LoadFormIntoPanel(new TransactionHistoryForm());
         }
 
         private void btnClose_Click(object sender, EventArgs e)

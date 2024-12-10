@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
+using System.Diagnostics;
+using DrawingImage = System.Drawing.Image;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
+
+
 
 namespace Marty_s_Karenderia
 {
@@ -22,6 +27,7 @@ namespace Marty_s_Karenderia
             LoadProducts();
             ConfigureCartGridView();
             ConfigureCartGrid();
+            LoadAllCategories();
         }
 
         // Initializes the cart DataTable
@@ -32,9 +38,10 @@ namespace Marty_s_Karenderia
             cartTable.Columns.Add("ProductName", typeof(string));
             cartTable.Columns.Add("Quantity", typeof(int));
             cartTable.Columns.Add("Price", typeof(decimal));
-            cartTable.Columns.Add("Subtotal", typeof(decimal));
+            cartTable.Columns.Add("Subtotal", typeof(decimal)).DefaultValue = 0m; // Default value set to 0
             dgvCart.DataSource = cartTable;
         }
+
 
         private void LoadProducts(int? categoryID = null)
         {
@@ -43,7 +50,7 @@ namespace Marty_s_Karenderia
             using (var connection = new SqlConnection("Data Source=DESKTOP-K6LHVL9\\SQLEXPRESS;Initial Catalog=\"Marty's_CarenderiaDB\";Integrated Security=True"))
             {
                 connection.Open();
-                var query = "SELECT MenuItemID AS ProductID, ItemName AS ProductName, Price, ItemImage FROM MenuItems";
+                var query = "SELECT MenuItemID AS ProductID, ItemName AS ProductName, Price, ItemImage, CategoryID FROM MenuItems";
                 if (categoryID.HasValue)
                 {
                     query += " WHERE CategoryID = @CategoryID";
@@ -66,7 +73,7 @@ namespace Marty_s_Karenderia
                                 ProductName = reader["ProductName"].ToString(),
                                 Price = (decimal)reader["Price"],
                                 ProductImage = reader["ItemImage"] != DBNull.Value
-                                    ? Image.FromStream(new MemoryStream((byte[])reader["ItemImage"]))
+                                    ? DrawingImage.FromStream(new MemoryStream((byte[])reader["ItemImage"]))
                                     : null
                             };
 
@@ -77,6 +84,7 @@ namespace Marty_s_Karenderia
                 }
             }
         }
+
         private void ConfigureCartGrid()
         {
             dgvCart.Columns.Clear();
@@ -144,6 +152,17 @@ namespace Marty_s_Karenderia
         {
             panelCategories.Controls.Clear(); // Clear existing buttons
 
+            // Add "All Categories" button
+            Button btnAllCategories = new Button
+            {
+                Text = "All Categories",
+                Width = 100,
+                Height = 50,
+                Margin = new Padding(5)
+            };
+            btnAllCategories.Click += (s, e) => LoadProducts(); // Load all products
+            panelCategories.Controls.Add(btnAllCategories);
+
             using (var connection = new SqlConnection("Data Source=DESKTOP-K6LHVL9\\SQLEXPRESS;Initial Catalog=\"Marty's_CarenderiaDB\";Integrated Security=True"))
             {
                 connection.Open();
@@ -169,18 +188,21 @@ namespace Marty_s_Karenderia
                             LoadProducts(categoryID); // Load products for the selected category
                         };
 
-                        panelCategories.Controls.Add(btnCategory); // Add button to the panel
+                        panelCategories.Controls.Add(btnCategory); // Add category button
                     }
                 }
             }
+
+            panelCategories.Refresh(); // Ensure UI updates
         }
+
 
 
         private void AddToCart(ProductTile productTile)
         {
             // Check if the product already exists in the cart
             var existingRow = cartTable.AsEnumerable()
-                .FirstOrDefault(row => row.Field<int?>("ProductID") == productTile.ProductID);
+                .FirstOrDefault(row => row.Field<int>("ProductID") == productTile.ProductID);
 
             if (existingRow != null)
             {
@@ -200,9 +222,13 @@ namespace Marty_s_Karenderia
         }
 
 
+
         private void UpdateSummary()
         {
-            decimal subtotal = cartTable.AsEnumerable().Sum(row => row.Field<decimal>("Subtotal"));
+            decimal subtotal = cartTable.AsEnumerable()
+    .Where(row => row["Subtotal"] != DBNull.Value)
+    .Sum(row => row.Field<decimal>("Subtotal"))
+;
             decimal tax = subtotal * 0.12m; // Example tax rate
             decimal total = subtotal + tax;
 
@@ -227,11 +253,16 @@ namespace Marty_s_Karenderia
                 return;
             }
 
-            // Save transaction to the database
-            SaveTransaction();
+            // Example default values (replace with actual logic if needed)
+            decimal amountPaid = 0m;
+            decimal change = 0m;
+            string paymentMethod = "Unspecified";
 
-            // Print receipt
-            PrintReceipt();
+            // Save transaction to the database
+            SaveTransaction(amountPaid, change, paymentMethod);
+
+            // Generate receipt
+            GenerateReceiptPDF(amountPaid, change);
 
             // Clear the order
             btnClearOrder_Click(null, null);
@@ -239,10 +270,11 @@ namespace Marty_s_Karenderia
 
 
 
+
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Hide();
-            AdminAccountForm admin = new AdminAccountForm(); // Replace with Admin or Employee form logic
+            AdminForm admin = new AdminForm(); // Replace with Admin or Employee form logic
             admin.Show();
         }
 
@@ -258,25 +290,35 @@ namespace Marty_s_Karenderia
         }
         private void dgvCart_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            dgvCart.AllowUserToAddRows = false;
+      
             if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
 
             string columnName = dgvCart.Columns[e.ColumnIndex].Name;
 
             if (columnName == "Edit")
             {
-                // Edit functionality
-                int quantity = int.Parse(dgvCart.Rows[e.RowIndex].Cells["Quantity"].Value.ToString());
-                string quantityString = quantity.ToString(); // Convert to string
-                string newQuantityInput = Prompt.ShowDialog("Edit Quantity", "Enter new quantity:", quantityString);
-
-                if (int.TryParse(newQuantityInput, out int newQuantity) && newQuantity > 0)
+                // Check if the Quantity cell is not null and contains a valid integer
+                if (dgvCart.Rows[e.RowIndex].Cells["Quantity"].Value != null &&
+                    int.TryParse(dgvCart.Rows[e.RowIndex].Cells["Quantity"].Value.ToString(), out int quantity))
                 {
-                    dgvCart.Rows[e.RowIndex].Cells["Quantity"].Value = newQuantity;
-                    UpdateCart();
+                    string quantityString = quantity.ToString(); // Convert to string
+                    string newQuantityInput = Prompt.ShowDialog("Edit Quantity", "Enter new quantity:", quantityString);
+
+                    // Validate the new input for quantity
+                    if (int.TryParse(newQuantityInput, out int newQuantity) && newQuantity > 0)
+                    {
+                        dgvCart.Rows[e.RowIndex].Cells["Quantity"].Value = newQuantity;
+                        UpdateCart();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid quantity entered. Please enter a valid number greater than zero.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Invalid quantity entered. Please enter a valid number greater than zero.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("The current quantity value is invalid or missing.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else if (columnName == "Delete")
@@ -286,6 +328,7 @@ namespace Marty_s_Karenderia
                 UpdateCart();
             }
         }
+
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
@@ -320,7 +363,7 @@ namespace Marty_s_Karenderia
                                 ProductName = reader["ProductName"].ToString(),
                                 Price = (decimal)reader["Price"],
                                 ProductImage = reader["ItemImage"] != DBNull.Value
-                                    ? Image.FromStream(new MemoryStream((byte[])reader["ItemImage"]))
+                                    ? DrawingImage.FromStream(new MemoryStream((byte[])reader["ItemImage"]))
                                     : null
                             };
 
@@ -400,84 +443,62 @@ namespace Marty_s_Karenderia
             });
         }
 
-        private void SaveTransaction()
+        private void SaveTransaction(decimal amountPaid, decimal change, string paymentMethod)
         {
+            RemoveEmptyRows();
+
+            if (cartTable.Rows.Count == 0)
+            {
+                MessageBox.Show("Cart is empty. Add items to the cart before finalizing.", "Empty Cart", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             using (var connection = new SqlConnection("Data Source=DESKTOP-K6LHVL9\\SQLEXPRESS;Initial Catalog=\"Marty's_CarenderiaDB\";Integrated Security=True"))
             {
                 connection.Open();
 
                 // Save the main order
                 var query = @"
-            INSERT INTO Orders (OrderDate, TotalAmount, OrderType)
-            OUTPUT INSERTED.OrderID
-            VALUES (@Date, @TotalAmount, @OrderType)";
+        INSERT INTO Orders (OrderDate, TotalAmount, OrderType)
+        OUTPUT INSERTED.OrderID
+        VALUES (@Date, @TotalAmount, @OrderType)";
 
                 int orderID;
 
                 using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Date", DateTime.Now);
-                    command.Parameters.AddWithValue("@TotalAmount", cartTable.AsEnumerable().Sum(row => row.Field<decimal>("Subtotal")));
+                    command.Parameters.AddWithValue("@TotalAmount", cartTable.AsEnumerable()
+                        .Where(row => row["Subtotal"] != DBNull.Value)
+                        .Sum(row => row.Field<decimal>("Subtotal")));
                     command.Parameters.AddWithValue("@OrderType", rbDineIn.Checked ? "Dine-In" : "Takeout");
 
-                    // Retrieve the generated OrderID
                     orderID = (int)command.ExecuteScalar();
                 }
 
                 // Save order details
                 foreach (DataRow row in cartTable.Rows)
                 {
-                    int menuID = Convert.ToInt32(row["ProductID"]);
-
-                    // Debugging: Ensure the MenuID exists
-                    var checkQuery = "SELECT COUNT(*) FROM Menu WHERE MenuID = @MenuID";
-                    using (var checkCommand = new SqlCommand(checkQuery, connection))
-                    {
-                        checkCommand.Parameters.AddWithValue("@MenuID", menuID);
-                        int exists = (int)checkCommand.ExecuteScalar();
-
-                        if (exists == 0)
-                        {
-                            MessageBox.Show($"Invalid MenuID: {menuID}. Ensure it exists in the Menu table.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            continue;
-                        }
-                    }
-
                     var itemQuery = @"
-                INSERT INTO OrderDetails (OrderID, MenuID, Quantity, Subtotal)
-                VALUES (@OrderID, @MenuID, @Quantity, @Subtotal)";
+            INSERT INTO OrderDetails (OrderID, MenuID, Quantity, Subtotal)
+            VALUES (@OrderID, @MenuID, @Quantity, @Subtotal)";
 
                     using (var itemCommand = new SqlCommand(itemQuery, connection))
                     {
                         itemCommand.Parameters.AddWithValue("@OrderID", orderID);
-                        itemCommand.Parameters.AddWithValue("@MenuID", menuID);
+                        itemCommand.Parameters.AddWithValue("@MenuID", row["ProductID"]);
                         itemCommand.Parameters.AddWithValue("@Quantity", row["Quantity"]);
                         itemCommand.Parameters.AddWithValue("@Subtotal", row["Subtotal"]);
 
                         itemCommand.ExecuteNonQuery();
                     }
                 }
+
+                // Save payment details
+                SavePaymentDetails(connection, orderID, amountPaid, change, paymentMethod);
             }
         }
 
-        private void PrintReceipt()
-        {
-            StringBuilder receipt = new StringBuilder();
-            receipt.AppendLine("Receipt");
-            receipt.AppendLine("---------------------------");
-            foreach (DataRow row in cartTable.Rows)
-            {
-                receipt.AppendLine($"{row["ProductName"]} x{row["Quantity"]} @ {row["Price"]:C2} = {row["Subtotal"]:C2}");
-            }
-            receipt.AppendLine("---------------------------");
-            receipt.AppendLine($"Subtotal: {lblSubtotal.Text}");
-            receipt.AppendLine($"Tax: {lblTax.Text}");
-            receipt.AppendLine($"Total: {lblTotal.Text}");
-
-            MessageBox.Show("Receipt Printed!", "Receipt", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            MessageBox.Show(receipt.ToString(), "Receipt", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            
-        }
 
         private void UpdateCart()
         {
@@ -494,6 +515,209 @@ namespace Marty_s_Karenderia
             UpdateSummary();
         }
 
+        private void RemoveEmptyRows()
+        {
+            foreach (DataRow row in cartTable.Rows.Cast<DataRow>().ToList())
+            {
+                if (row["Subtotal"] == DBNull.Value || Convert.ToDecimal(row["Subtotal"]) <= 0)
+                {
+                    cartTable.Rows.Remove(row);
+                }
+            }
+        }
 
+        private void LoadAllCategories()
+        {
+            Button btnAllCategories = new Button
+            {
+                Text = "All Categories",
+                Width = 100,
+                Height = 50,
+                Margin = new Padding(5)
+            };
+
+            btnAllCategories.Click += (s, e) => LoadProducts();
+
+            panelCategories.Controls.Add(btnAllCategories);
+        }
+
+        private void btnPayment_Click(object sender, EventArgs e)
+        {
+            // Validate if the cart has items
+            if (cartTable.Rows.Count == 0)
+            {
+                MessageBox.Show("Cart is empty. Add items to the cart before proceeding to payment.", "Empty Cart", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Validate if an order type is selected (Dine-In or Takeout)
+            if (!ValidateOrderType()) return;
+
+            // Calculate totals
+            decimal subtotal = cartTable.AsEnumerable()
+                .Where(row => row["Subtotal"] != DBNull.Value)
+                .Sum(row => row.Field<decimal>("Subtotal"));
+            decimal tax = subtotal * 0.12m; // Example 12% tax
+            decimal total = subtotal + tax;
+
+            // Open the payment form
+            using (var paymentForm = new PaymentForm(total))
+            {
+                if (paymentForm.ShowDialog() == DialogResult.OK)
+                {
+                    // Retrieve payment details
+                    decimal amountPaid = paymentForm.AmountPaid;
+                    decimal change = paymentForm.Change;
+                    string paymentMethod = paymentForm.PaymentMethod;
+
+                    MessageBox.Show($"Payment Successful!\nChange: ₱{change:F2}\nMethod: {paymentMethod}", "Payment", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Save transaction and payment details
+                    SaveTransaction(amountPaid, change, paymentMethod);
+
+                    // Generate the receipt with payment details
+                    GenerateReceiptPDF(amountPaid, change);
+
+                    // Clear the cart after payment
+                    btnClearOrder_Click(null, null);
+                }
+                else
+                {
+                    MessageBox.Show("Payment canceled. The transaction was not completed.", "Payment Canceled", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+        }
+
+
+        private decimal GetTotalAmount()
+        {
+            return cartTable.AsEnumerable()
+                .Where(row => row["Subtotal"] != DBNull.Value)
+                .Sum(row => row.Field<decimal>("Subtotal"));
+        }
+
+        private void GenerateReceiptPDF(decimal amountPaid, decimal change)
+        {
+            string fileName = $"Receipt_{DateTime.Now:yyyyMMddHHmmss}.pdf";
+            string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), fileName);
+
+            // Create a new PDF document
+            PdfDocument document = new PdfDocument();
+            document.Info.Title = "Marty's Karenderia Receipt";
+
+            // Add a page
+            PdfPage page = document.AddPage();
+            XGraphics gfx = XGraphics.FromPdfPage(page);
+
+            // Define fonts
+            XFont titleFont = new XFont("Verdana", 16);
+            XFont regularFont = new XFont("Verdana", 12);
+            XFont italicFont = new XFont("Verdana", 10);
+
+            // Draw title
+            gfx.DrawString("Marty's Karenderia Receipt", titleFont, XBrushes.Black,
+                new XRect(0, 20, page.Width, 40), XStringFormats.TopCenter);
+
+            // Draw date and time
+            gfx.DrawString($"Date: {DateTime.Now:MM/dd/yyyy HH:mm}", regularFont, XBrushes.Black,
+                new XRect(40, 60, page.Width, 20), XStringFormats.TopLeft);
+
+            // Draw column headers
+            int yPoint = 100;
+            gfx.DrawString("Product Name", regularFont, XBrushes.Black, new XRect(40, yPoint, 200, 20), XStringFormats.TopLeft);
+            gfx.DrawString("Qty", regularFont, XBrushes.Black, new XRect(240, yPoint, 50, 20), XStringFormats.TopLeft);
+            gfx.DrawString("Price", regularFont, XBrushes.Black, new XRect(290, yPoint, 70, 20), XStringFormats.TopLeft);
+            gfx.DrawString("Subtotal", regularFont, XBrushes.Black, new XRect(360, yPoint, 80, 20), XStringFormats.TopLeft);
+
+            yPoint += 20;
+
+            // Loop through cart items and add them to the receipt
+            foreach (DataRow row in cartTable.Rows)
+            {
+                gfx.DrawString(row["ProductName"].ToString(), regularFont, XBrushes.Black, new XRect(40, yPoint, 200, 20), XStringFormats.TopLeft);
+                gfx.DrawString(row["Quantity"].ToString(), regularFont, XBrushes.Black, new XRect(240, yPoint, 50, 20), XStringFormats.TopLeft);
+                gfx.DrawString($"₱{Convert.ToDecimal(row["Price"]):F2}", regularFont, XBrushes.Black, new XRect(290, yPoint, 70, 20), XStringFormats.TopLeft);
+                gfx.DrawString($"₱{Convert.ToDecimal(row["Subtotal"]):F2}", regularFont, XBrushes.Black, new XRect(360, yPoint, 80, 20), XStringFormats.TopLeft);
+                yPoint += 20;
+            }
+
+            // Calculate totals
+            decimal subtotal = cartTable.AsEnumerable()
+                .Where(row => row["Subtotal"] != DBNull.Value)
+                .Sum(row => row.Field<decimal>("Subtotal"));
+            decimal tax = subtotal * 0.12m; // 12% tax
+            decimal total = subtotal + tax;
+
+            // Draw totals
+            yPoint += 20;
+            gfx.DrawString($"Subtotal: ₱{subtotal:F2}", regularFont, XBrushes.Black,
+                new XRect(360, yPoint, 200, 20), XStringFormats.TopLeft);
+            yPoint += 20;
+            gfx.DrawString($"Tax (12%): ₱{tax:F2}", regularFont, XBrushes.Black,
+                new XRect(360, yPoint, 200, 20), XStringFormats.TopLeft);
+            yPoint += 20;
+            gfx.DrawString($"Total: ₱{total:F2}", titleFont, XBrushes.Black,
+                new XRect(360, yPoint, 200, 20), XStringFormats.TopLeft);
+
+            // Include amount paid and change 
+            yPoint += 20;
+            gfx.DrawString($"Amount Paid: ₱{amountPaid:F2}", regularFont, XBrushes.Black,
+                new XRect(360, yPoint, 200, 20), XStringFormats.TopLeft);
+            yPoint += 20;
+            gfx.DrawString($"Change: ₱{change:F2}", regularFont, XBrushes.Black,
+                new XRect(360, yPoint, 200, 20), XStringFormats.TopLeft);
+
+            // Add a thank-you note
+            yPoint += 40;
+            gfx.DrawString("Thank you for dining with us!", italicFont, XBrushes.Black,
+                new XRect(0, yPoint, page.Width, 20), XStringFormats.TopCenter);
+
+            // Save the document
+            document.Save(filePath);
+
+            // Automatically open the PDF
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = filePath,
+                UseShellExecute = true // Ensures it opens with the default PDF viewer
+            });
+        }
+
+        private void SavePaymentDetails(SqlConnection connection, int orderID, decimal amountPaid, decimal change, string paymentMethod)
+        {
+            var query = @"
+    INSERT INTO Payments (OrderID, PaymentAmount, PaymentMethod, ChangeAmount, PaymentDate)
+    VALUES (@OrderID, @PaymentAmount, @PaymentMethod, @ChangeAmount, @PaymentDate)";
+
+            using (var command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@OrderID", orderID);
+                command.Parameters.AddWithValue("@PaymentAmount", amountPaid);
+                command.Parameters.AddWithValue("@PaymentMethod", paymentMethod);
+                command.Parameters.AddWithValue("@ChangeAmount", change);
+                command.Parameters.AddWithValue("@PaymentDate", DateTime.Now);
+
+                command.ExecuteNonQuery();
+            }
+        }
+
+
+
+        private int GetLatestOrderID(SqlConnection connection)
+        {
+            var query = "SELECT MAX(OrderID) FROM Orders";
+            using (var command = new SqlCommand(query, connection))
+            {
+                return (int)command.ExecuteScalar();
+            }
+        }
+
+        private void btnKitchen_Click(object sender, EventArgs e)
+        {
+            using (var kitchenForm = new KitchenForm())
+            {
+                kitchenForm.ShowDialog();
+            }
+        }
     }
 }

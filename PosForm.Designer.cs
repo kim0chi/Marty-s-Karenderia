@@ -28,25 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PosForm));
             this.dgvCart = new System.Windows.Forms.DataGridView();
             this.flowProducts = new System.Windows.Forms.FlowLayoutPanel();
-            this.panelCategories = new System.Windows.Forms.Panel();
             this.lblSubtotal = new System.Windows.Forms.Label();
             this.lblTax = new System.Windows.Forms.Label();
             this.lblTotal = new System.Windows.Forms.Label();
-            this.btnFinalizeSale = new ReaLTaiizor.Controls.Button();
+            this.btnPayment = new ReaLTaiizor.Controls.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnClearOrder = new ReaLTaiizor.Controls.Button();
             this.txtSearch = new ReaLTaiizor.Controls.AloneTextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnExit = new ReaLTaiizor.Controls.Button();
-            this.btnTransactionHistory = new ReaLTaiizor.Controls.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.btnClearOrder = new ReaLTaiizor.Controls.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.rbDineIn = new ReaLTaiizor.Controls.AloneRadioButton();
             this.rbTakeout = new ReaLTaiizor.Controls.AloneRadioButton();
+            this.panelCategories = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnKitchen = new ReaLTaiizor.Controls.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCart)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -62,17 +60,10 @@
             // 
             // flowProducts
             // 
-            this.flowProducts.Location = new System.Drawing.Point(188, 79);
+            this.flowProducts.Location = new System.Drawing.Point(187, 79);
             this.flowProducts.Name = "flowProducts";
-            this.flowProducts.Size = new System.Drawing.Size(382, 540);
+            this.flowProducts.Size = new System.Drawing.Size(383, 540);
             this.flowProducts.TabIndex = 5;
-            // 
-            // panelCategories
-            // 
-            this.panelCategories.Location = new System.Drawing.Point(12, 79);
-            this.panelCategories.Name = "panelCategories";
-            this.panelCategories.Size = new System.Drawing.Size(170, 540);
-            this.panelCategories.TabIndex = 6;
             // 
             // lblSubtotal
             // 
@@ -104,38 +95,59 @@
             this.lblTotal.TabIndex = 9;
             this.lblTotal.Text = ":     ";
             // 
-            // btnFinalizeSale
+            // btnPayment
             // 
-            this.btnFinalizeSale.BackColor = System.Drawing.Color.Transparent;
-            this.btnFinalizeSale.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
-            this.btnFinalizeSale.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnFinalizeSale.EnteredBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
-            this.btnFinalizeSale.EnteredColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
-            this.btnFinalizeSale.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnFinalizeSale.Image = null;
-            this.btnFinalizeSale.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFinalizeSale.InactiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
-            this.btnFinalizeSale.Location = new System.Drawing.Point(1017, 28);
-            this.btnFinalizeSale.Name = "btnFinalizeSale";
-            this.btnFinalizeSale.PressedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
-            this.btnFinalizeSale.PressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
-            this.btnFinalizeSale.Size = new System.Drawing.Size(120, 40);
-            this.btnFinalizeSale.TabIndex = 10;
-            this.btnFinalizeSale.Text = "Finalize Sale";
-            this.btnFinalizeSale.TextAlignment = System.Drawing.StringAlignment.Center;
-            this.btnFinalizeSale.Click += new System.EventHandler(this.btnFinalizeSale_Click);
+            this.btnPayment.BackColor = System.Drawing.Color.Transparent;
+            this.btnPayment.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
+            this.btnPayment.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPayment.EnteredBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
+            this.btnPayment.EnteredColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
+            this.btnPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btnPayment.Image = null;
+            this.btnPayment.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPayment.InactiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
+            this.btnPayment.Location = new System.Drawing.Point(1017, 28);
+            this.btnPayment.Name = "btnPayment";
+            this.btnPayment.PressedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
+            this.btnPayment.PressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
+            this.btnPayment.Size = new System.Drawing.Size(120, 40);
+            this.btnPayment.TabIndex = 10;
+            this.btnPayment.Text = "Payment";
+            this.btnPayment.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.btnPayment.Click += new System.EventHandler(this.btnPayment_Click);
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(24)))), ((int)(((byte)(35)))));
+            this.panel1.Controls.Add(this.btnKitchen);
             this.panel1.Controls.Add(this.btnClearOrder);
-            this.panel1.Controls.Add(this.btnTransactionHistory);
-            this.panel1.Controls.Add(this.btnFinalizeSale);
+            this.panel1.Controls.Add(this.btnPayment);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 639);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1150, 100);
             this.panel1.TabIndex = 11;
+            // 
+            // btnClearOrder
+            // 
+            this.btnClearOrder.BackColor = System.Drawing.Color.Transparent;
+            this.btnClearOrder.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
+            this.btnClearOrder.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnClearOrder.EnteredBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
+            this.btnClearOrder.EnteredColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
+            this.btnClearOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btnClearOrder.Image = null;
+            this.btnClearOrder.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClearOrder.InactiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
+            this.btnClearOrder.Location = new System.Drawing.Point(684, 28);
+            this.btnClearOrder.Name = "btnClearOrder";
+            this.btnClearOrder.PressedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
+            this.btnClearOrder.PressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
+            this.btnClearOrder.Size = new System.Drawing.Size(120, 40);
+            this.btnClearOrder.TabIndex = 13;
+            this.btnClearOrder.Text = "Clear";
+            this.btnClearOrder.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.btnClearOrder.Click += new System.EventHandler(this.btnClearOrder_Click);
             // 
             // txtSearch
             // 
@@ -185,78 +197,6 @@
             this.btnExit.TextAlignment = System.Drawing.StringAlignment.Center;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
-            // btnTransactionHistory
-            // 
-            this.btnTransactionHistory.BackColor = System.Drawing.Color.Transparent;
-            this.btnTransactionHistory.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
-            this.btnTransactionHistory.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnTransactionHistory.EnteredBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
-            this.btnTransactionHistory.EnteredColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
-            this.btnTransactionHistory.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnTransactionHistory.Image = null;
-            this.btnTransactionHistory.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTransactionHistory.InactiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
-            this.btnTransactionHistory.Location = new System.Drawing.Point(27, 28);
-            this.btnTransactionHistory.Name = "btnTransactionHistory";
-            this.btnTransactionHistory.PressedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
-            this.btnTransactionHistory.PressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
-            this.btnTransactionHistory.Size = new System.Drawing.Size(154, 40);
-            this.btnTransactionHistory.TabIndex = 12;
-            this.btnTransactionHistory.Text = "Transaction History";
-            this.btnTransactionHistory.TextAlignment = System.Drawing.StringAlignment.Center;
-            this.btnTransactionHistory.Click += new System.EventHandler(this.btnTransactionHistory_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Yu Gothic UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(803, 591);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 25);
-            this.label1.TabIndex = 17;
-            this.label1.Text = "Total";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Yu Gothic UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(803, 566);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(39, 25);
-            this.label3.TabIndex = 16;
-            this.label3.Text = "Tax";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Yu Gothic UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(803, 541);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(82, 25);
-            this.label4.TabIndex = 15;
-            this.label4.Text = "Subtotal";
-            // 
-            // btnClearOrder
-            // 
-            this.btnClearOrder.BackColor = System.Drawing.Color.Transparent;
-            this.btnClearOrder.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
-            this.btnClearOrder.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnClearOrder.EnteredBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
-            this.btnClearOrder.EnteredColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
-            this.btnClearOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnClearOrder.Image = null;
-            this.btnClearOrder.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClearOrder.InactiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
-            this.btnClearOrder.Location = new System.Drawing.Point(891, 28);
-            this.btnClearOrder.Name = "btnClearOrder";
-            this.btnClearOrder.PressedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
-            this.btnClearOrder.PressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
-            this.btnClearOrder.Size = new System.Drawing.Size(120, 40);
-            this.btnClearOrder.TabIndex = 13;
-            this.btnClearOrder.Text = "Clear";
-            this.btnClearOrder.TextAlignment = System.Drawing.StringAlignment.Center;
-            this.btnClearOrder.Click += new System.EventHandler(this.btnClearOrder_Click);
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -293,30 +233,57 @@
             this.rbTakeout.TabIndex = 20;
             this.rbTakeout.Text = "Takeout";
             // 
+            // panelCategories
+            // 
+            this.panelCategories.AutoScroll = true;
+            this.panelCategories.Location = new System.Drawing.Point(27, 79);
+            this.panelCategories.Name = "panelCategories";
+            this.panelCategories.Size = new System.Drawing.Size(154, 537);
+            this.panelCategories.TabIndex = 21;
+            // 
+            // btnKitchen
+            // 
+            this.btnKitchen.BackColor = System.Drawing.Color.Transparent;
+            this.btnKitchen.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
+            this.btnKitchen.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnKitchen.EnteredBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
+            this.btnKitchen.EnteredColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
+            this.btnKitchen.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btnKitchen.Image = null;
+            this.btnKitchen.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnKitchen.InactiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
+            this.btnKitchen.Location = new System.Drawing.Point(810, 28);
+            this.btnKitchen.Name = "btnKitchen";
+            this.btnKitchen.PressedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
+            this.btnKitchen.PressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
+            this.btnKitchen.Size = new System.Drawing.Size(201, 40);
+            this.btnKitchen.TabIndex = 14;
+            this.btnKitchen.Text = "Send Order to Kitchen";
+            this.btnKitchen.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.btnKitchen.Click += new System.EventHandler(this.btnKitchen_Click);
+            // 
             // PosForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(251)))), ((int)(((byte)(226)))));
             this.ClientSize = new System.Drawing.Size(1150, 739);
+            this.Controls.Add(this.panelCategories);
             this.Controls.Add(this.rbTakeout);
             this.Controls.Add(this.rbDineIn);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.lblTotal);
-            this.Controls.Add(this.panelCategories);
             this.Controls.Add(this.flowProducts);
             this.Controls.Add(this.lblTax);
             this.Controls.Add(this.dgvCart);
             this.Controls.Add(this.lblSubtotal);
             this.Font = new System.Drawing.Font("Yu Gothic UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PosForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PosForm";
@@ -330,22 +297,19 @@
         #endregion
         private System.Windows.Forms.DataGridView dgvCart;
         private System.Windows.Forms.FlowLayoutPanel flowProducts;
-        private System.Windows.Forms.Panel panelCategories;
         private System.Windows.Forms.Label lblSubtotal;
         private System.Windows.Forms.Label lblTax;
         private System.Windows.Forms.Label lblTotal;
-        private ReaLTaiizor.Controls.Button btnFinalizeSale;
+        private ReaLTaiizor.Controls.Button btnPayment;
         private System.Windows.Forms.Panel panel1;
-        private ReaLTaiizor.Controls.Button btnTransactionHistory;
         private ReaLTaiizor.Controls.AloneTextBox txtSearch;
         private System.Windows.Forms.Label label2;
         private ReaLTaiizor.Controls.Button btnExit;
         private ReaLTaiizor.Controls.Button btnClearOrder;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private ReaLTaiizor.Controls.AloneRadioButton rbDineIn;
         private ReaLTaiizor.Controls.AloneRadioButton rbTakeout;
+        private System.Windows.Forms.FlowLayoutPanel panelCategories;
+        private ReaLTaiizor.Controls.Button btnKitchen;
     }
 }
