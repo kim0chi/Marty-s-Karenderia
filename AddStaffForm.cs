@@ -35,7 +35,7 @@ namespace Marty_s_Karenderia
         private void LoadRoles()
         {
             // Example roles, you can load these from a database if needed
-            var roles = new List<string> { "Admin", "Cashier", "Chef", "Waiter" };
+            var roles = new List<string> { "Cashier", "Chef", "Waiter" };
             cmbRole.DataSource = roles;
         }
 
