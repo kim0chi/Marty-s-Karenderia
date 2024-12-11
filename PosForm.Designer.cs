@@ -36,6 +36,7 @@
             this.lblTotal = new System.Windows.Forms.Label();
             this.btnPayment = new ReaLTaiizor.Controls.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnKitchen = new ReaLTaiizor.Controls.Button();
             this.btnClearOrder = new ReaLTaiizor.Controls.Button();
             this.txtSearch = new ReaLTaiizor.Controls.AloneTextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -44,7 +45,6 @@
             this.rbDineIn = new ReaLTaiizor.Controls.AloneRadioButton();
             this.rbTakeout = new ReaLTaiizor.Controls.AloneRadioButton();
             this.panelCategories = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnKitchen = new ReaLTaiizor.Controls.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCart)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -60,6 +60,7 @@
             // 
             // flowProducts
             // 
+            this.flowProducts.AutoScroll = true;
             this.flowProducts.Location = new System.Drawing.Point(187, 79);
             this.flowProducts.Name = "flowProducts";
             this.flowProducts.Size = new System.Drawing.Size(383, 540);
@@ -127,6 +128,27 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1150, 100);
             this.panel1.TabIndex = 11;
+            // 
+            // btnKitchen
+            // 
+            this.btnKitchen.BackColor = System.Drawing.Color.Transparent;
+            this.btnKitchen.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
+            this.btnKitchen.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnKitchen.EnteredBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
+            this.btnKitchen.EnteredColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
+            this.btnKitchen.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btnKitchen.Image = null;
+            this.btnKitchen.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnKitchen.InactiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
+            this.btnKitchen.Location = new System.Drawing.Point(27, 28);
+            this.btnKitchen.Name = "btnKitchen";
+            this.btnKitchen.PressedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
+            this.btnKitchen.PressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
+            this.btnKitchen.Size = new System.Drawing.Size(126, 40);
+            this.btnKitchen.TabIndex = 14;
+            this.btnKitchen.Text = "Kitchen Status";
+            this.btnKitchen.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.btnKitchen.Click += new System.EventHandler(this.btnKitchen_Click);
             // 
             // btnClearOrder
             // 
@@ -240,27 +262,6 @@
             this.panelCategories.Name = "panelCategories";
             this.panelCategories.Size = new System.Drawing.Size(154, 537);
             this.panelCategories.TabIndex = 21;
-            // 
-            // btnKitchen
-            // 
-            this.btnKitchen.BackColor = System.Drawing.Color.Transparent;
-            this.btnKitchen.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
-            this.btnKitchen.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnKitchen.EnteredBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
-            this.btnKitchen.EnteredColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
-            this.btnKitchen.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnKitchen.Image = null;
-            this.btnKitchen.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnKitchen.InactiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
-            this.btnKitchen.Location = new System.Drawing.Point(27, 28);
-            this.btnKitchen.Name = "btnKitchen";
-            this.btnKitchen.PressedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
-            this.btnKitchen.PressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
-            this.btnKitchen.Size = new System.Drawing.Size(126, 40);
-            this.btnKitchen.TabIndex = 14;
-            this.btnKitchen.Text = "Kitchen Status";
-            this.btnKitchen.TextAlignment = System.Drawing.StringAlignment.Center;
-            this.btnKitchen.Click += new System.EventHandler(this.btnKitchen_Click);
             // 
             // PosForm
             // 

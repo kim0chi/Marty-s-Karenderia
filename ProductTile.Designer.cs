@@ -38,11 +38,12 @@
             // 
             this.lblProductName.AutoSize = true;
             this.lblProductName.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProductName.Location = new System.Drawing.Point(35, 96);
+            this.lblProductName.Location = new System.Drawing.Point(38, 96);
             this.lblProductName.Name = "lblProductName";
             this.lblProductName.Size = new System.Drawing.Size(53, 21);
             this.lblProductName.TabIndex = 1;
             this.lblProductName.Text = "Name";
+            this.lblProductName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblProductName.Click += new System.EventHandler(this.lblProductName_Click);
             // 
             // lblPrice
@@ -50,7 +51,7 @@
             this.lblPrice.AutoSize = true;
             this.lblPrice.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPrice.ForeColor = System.Drawing.Color.IndianRed;
-            this.lblPrice.Location = new System.Drawing.Point(35, 117);
+            this.lblPrice.Location = new System.Drawing.Point(45, 117);
             this.lblPrice.Name = "lblPrice";
             this.lblPrice.Size = new System.Drawing.Size(46, 21);
             this.lblPrice.TabIndex = 2;
@@ -60,7 +61,7 @@
             // picProduct
             // 
             this.picProduct.Image = global::Marty_s_Karenderia.Properties.Resources.restaurant__1_;
-            this.picProduct.Location = new System.Drawing.Point(9, 3);
+            this.picProduct.Location = new System.Drawing.Point(25, 3);
             this.picProduct.Name = "picProduct";
             this.picProduct.Size = new System.Drawing.Size(100, 90);
             this.picProduct.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -75,7 +76,7 @@
             this.Controls.Add(this.lblProductName);
             this.Controls.Add(this.picProduct);
             this.Name = "ProductTile";
-            this.Size = new System.Drawing.Size(115, 150);
+            this.Size = new System.Drawing.Size(148, 150);
             ((System.ComponentModel.ISupportInitialize)(this.picProduct)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -184,5 +184,10 @@ namespace Marty_s_Karenderia
             DialogResult = DialogResult.Cancel; // Close the form without saving
             Close();
         }
+
+        private void numPrice_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

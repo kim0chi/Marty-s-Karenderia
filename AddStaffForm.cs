@@ -51,7 +51,7 @@ namespace Marty_s_Karenderia
                     command.Parameters.AddWithValue("@StaffID", staffID);
 
                     using (var reader = command.ExecuteReader())
-                    {
+                    { 
                         if (reader.Read())
                         {
                             txtFullName.Text = reader["FullName"].ToString();
